@@ -19,8 +19,29 @@ const getVideo = async (id) => {
     return await Video.findById(id)
 };
 
+const getTenNumbers = (array) => 
+{
+    let counter = 10;
+    let result = [];
+    while(counter > 0){
+        const randomIndex = Math.floor(Math.random() * (array.length))
+        const isVideoAlreadyTaken = result.map(video => video.id).includes(array[randomIndex].id)
+        if (!isVideoAlreadyTaken) 
+            {
+                counter--;
+                result.push(array[randomIndex]);
+            }
+    }
+
+    return result;
+}
+
+const compareVisits = (firstVideo, secondVideo) => secondVideo.visits - firstVideo.visits
 const getVideos = async () => {
-    return await Video.find({})
+    const allVideos = await Video.find({});
+    const topWatchedVideos = allVideos.sort(compareVisits);
+    const otherVideos = topWatchedVideos.slice(10);
+    return topWatchedVideos.slice(0, 10).concat(getTenNumbers(otherVideos));
 };
 
 const updateVideo = async (id, image, video, title, duration, visits, uploadDate, description, likes, categoryId) => {

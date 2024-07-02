@@ -19,7 +19,7 @@ const Video = new Schema({
         type: String
     },
     visits : {
-        type: String
+        type: Number
     },
     uploadDate : {
         type: Date,
