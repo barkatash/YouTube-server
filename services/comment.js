@@ -19,9 +19,8 @@ const createComment = async(videoId, userName ,description, uploadDate) => {
 };
 
 const getVideoComments = async(id) => {
-    const video = await Video.findById(id)
     const allComments = await Comment.find({});
-    return allComments.filter(comment => comment.videoId === video.id);
+    return allComments.filter(comment => comment.videoId === id);
 }
 const getUserComment = async(id, pid) => {
     const comment = await Comment.findById(pid);
