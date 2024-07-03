@@ -20,6 +20,6 @@ const videos = require('./routes/video');
 const user = require('./routes/user');
 
 app.use("/api/videos", videos);
-app.use("/api/user", user);
+app.use("/api/users", user);
 
 app.listen(process.env.PORT);
