@@ -5,7 +5,7 @@ const getVideos = async(req, res) => {
 };
 
 const getAllVideos = async(req, res) => {
-    res.json(await videoService.getVideos());
+    res.json(await videoService.getAllVideos());
 };
 const getVideo = async (req, res) => {
     const video = await videoService.getVideo(req.params.id);

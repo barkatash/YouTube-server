@@ -19,10 +19,11 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 const videos = require('./routes/video');
 const user = require('./routes/user');
 const comment = require('./routes/comment');
+const category = require('./routes/category');
 
 app.use("/api/videos", videos);
 app.use("/api/users", user);
 app.use("/api/comments", comment);
-
+app.use("/api/categories", category);
 
 app.listen(process.env.PORT);
