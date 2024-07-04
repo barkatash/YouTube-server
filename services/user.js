@@ -4,19 +4,24 @@ const Video = require("../models/video");
 const { MongoClient } = require("mongodb");
 
 const createUser = async (username, displayName, password, image) => {
-  const newUser = new User({ username, displayName, password });
-  newUser.image = "";
-  if (image) newUser.image = image;
-  newUser.videoIdListLiked = [];
-  newUser.videoIdListUnliked = [];
-  newUser.commentIdListLiked = [];
-  newUser.commentIdListUnliked = [];
-  await newUser.save();
-  return newUser;
+  const user = await User.findOne({ username: username });
+  if(!user) {
+    const newUser = new User({ username, displayName, password });
+    newUser.image = "";
+    if (image) newUser.image = image;
+    newUser.videoIdListLiked = [];
+    newUser.videoIdListUnliked = [];
+    newUser.commentIdListLiked = [];
+    newUser.commentIdListUnliked = [];
+    await newUser.save();
+    return newUser;
+  }  
+  return null;
 };
 
 const getUser = async (username) => {
-  return await User.findOne({ username: username });
+  const user = await User.findOne({ username: username });
+  return user;
 };
 const getUsers = async () => {
   return await User.find({});
