@@ -14,19 +14,5 @@ const getVideo = async (req, res) => {
     }
     res.json(video);
 };
-const updateVideo = async (req, res) => {
-    const video = await videoService.updateVideo(req.params.id, req.body);
-    if (!video) {
-        return res.status(404).json({ errors: ['Video not found'] });
-    }
-    res.json(video);
-};
-const deleteVideo = async (req, res) => {
-    const video = await videoService.deleteVideo(req.params.id);
-    if (!video) {
-        return res.status(404).json({ errors: ['Video not found'] });
-    }
-    res.json(video);
-};
 
-module.exports = { getVideos,getAllVideos, getVideo, updateVideo, deleteVideo };
+module.exports = { getVideos,getAllVideos, getVideo };
