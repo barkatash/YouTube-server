@@ -43,7 +43,6 @@ const getUserVideos = async (req, res) => {
   res.json(videos);
 };
 const createUserVideo = async (req, res) => {
-  console.log(req.body);
   res.json(
     await userService.createUserVideo(
       req.body.id,
