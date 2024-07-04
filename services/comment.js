@@ -9,8 +9,8 @@ const getComments = async() => {
     return allComments
 }
 
-const createComment = async(videoId, userName ,description, uploadDate) => {
-    const newComment = new Comment({ videoId, userName ,description })
+const createComment = async(username, videoId, description, uploadDate) => {
+    const newComment = new Comment({ videoId, userName: username ,description })
     if (uploadDate) newComment.uploadDate = uploadDate
     newComment.likes = 0;
     newComment.dislikes = 0;

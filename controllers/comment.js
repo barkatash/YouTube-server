@@ -5,7 +5,7 @@ const getComments = async (req, res) => {
     res.json(comments);
 };
 const createComment = async(req, res) => {
-    res.json(await CommentService.createComment(req.body.title));
+    res.json(await CommentService.createComment(req.params.id, req.params.pid, req.body.description));
 };
 const getVideoComments = async (req, res) => {
     const comments = await CommentService.getVideoComments(req.params.id);
