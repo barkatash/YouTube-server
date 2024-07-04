@@ -5,13 +5,21 @@ const { MongoClient } = require("mongodb");
 
 const createUser = async(username, displayName , password ,image) => {
     const newUser = new User({ username, displayName , password })
+    newUser.image = "";
     if (image) newUser.image = image;
+    newUser.videoIdListLiked = [];
+    newUser.videoIdListUnliked = [];
+    newUser.commentIdListLiked = [];
+    newUser.commentIdListUnliked = [];
     await newUser.save()
     return newUser;
 };
 
 const getUser = async (id) => {
     return await User.findById(id)
+};
+const getUsers = async () => {
+    return await User.find({})
 };
 
 const updateUser = async ( id, username, displayName , password ,image, videoIdListLiked, videoIdListUnliked, commentIdListLiked, commentIdListUnliked) => {
@@ -84,6 +92,7 @@ const deleteUserVideo = async (id, pid) => {
 module.exports = {
     createUser,
     getUser,
+    getUsers,
     updateUser,
     deleteUser,
     getUserVideos,

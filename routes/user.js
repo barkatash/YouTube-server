@@ -4,7 +4,8 @@ var router = express.Router();
 const userController = require('../controllers/user');
 
 router.route('/')
-        .patch(userController.createUser)
+        .get(userController.getUsers)
+        .post(userController.createUser)
 
 router.route('/:id')
         .get(userController.getUser)
@@ -13,7 +14,7 @@ router.route('/:id')
 
 router.route('/:id/videos')
         .get(userController.getUserVideos)
-        .patch(userController.createUserVideo)
+        .post(userController.createUserVideo)
 
 router.route('/:id/videos/:pid')
         .get(userController.getUserVideo)

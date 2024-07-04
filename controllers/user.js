@@ -1,7 +1,7 @@
 const userService = require('../services/user');
 
 const createUser = async(req, res) => {
-    res.json(await userService.createUser(req.body.title));
+    res.json(await userService.createUser(req.body.username, req.body.displayName, req.body.password, req.body.image));
 };
 const getUser = async (req, res) => {
     const user = await userService.getUser(req.params.id);
@@ -9,6 +9,13 @@ const getUser = async (req, res) => {
     return res.status(404).json({ errors: ['User not found'] });
     }
     res.json(user);
+};
+const getUsers = async (req, res) => {
+    const users = await userService.getUsers();
+    if (!users) {
+    return res.status(404).json({ errors: ['Users not found'] });
+    }
+    res.json(users);
 };
 const updateUser = async (req, res) => {
     const user = await userService.updateUser(req.body.title);
@@ -53,4 +60,4 @@ const deleteUserVideo = async (req, res) => {
     res.json(video);
 };
 
-module.exports = { createUser, getUser, updateUser, deleteUser, getUserVideos, createUserVideo, getUserVideo, updateUserVideo, deleteUserVideo };
+module.exports = { createUser, getUser, getUsers, updateUser, deleteUser, getUserVideos, createUserVideo, getUserVideo, updateUserVideo, deleteUserVideo };
