@@ -1,8 +1,5 @@
 const User = require('../models/user');
-const Video = require('../models/video');
 const Comment = require('../models/comment');
-
-const { MongoClient } = require("mongodb");
 
 const getComments = async() => {
     const allComments = await Comment.find({});
@@ -41,10 +38,10 @@ const updateUserComment = async(id, pid ,description, uploadDate) => {
     return null
 }
 const deleteUserComment = async (id, pid) => {
-    const user = await User.findById(id);
-    const comment = await Comment.findById(pid)
+    const user = await User.findOne({ username: id })
+    const comment = await Comment.findOne({ _id: pid })
     if (user && comment && comment.userName === user.username) {
-        await comment.remove()
+        await comment.deleteOne()
         return comment
     }
     return null
