@@ -17,6 +17,13 @@ const login = async (username, password) => {
     const token = jwt.sign(data, key)
 
     const response = {
+        username: username,
+        displayName: user.displayName,
+        image: user.image,
+        videoIdListLiked: user.videoIdListLiked,
+        videoIdListUnliked: user.videoIdListUnliked,
+        commentIdListLiked: user.commentIdListLiked,
+        commentIdListUnliked: user.commentIdListUnliked,
         result: 'success',
         status: 200,
         data: token
