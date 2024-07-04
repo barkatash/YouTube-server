@@ -10,7 +10,7 @@ const getAllVideos = async(req, res) => {
 const getVideo = async (req, res) => {
     const video = await videoService.getVideo(req.params.id);
     if (!video) {
-    return res.status(404).json({ errors: ['Video not found'] });
+        return res.status(404).json({ errors: ['Video not found'] });
     }
     res.json(video);
 };
