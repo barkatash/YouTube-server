@@ -43,19 +43,22 @@ const getUserVideos = async (req, res) => {
   res.json(videos);
 };
 const createUserVideo = async (req, res) => {
+  const { id, title, uploader, duration, visits, uploadDate, description, likes, categoryId } = req.body;
+  const image = req.files['image'][0];
+  const video = req.files['video'][0];
   res.json(
     await userService.createUserVideo(
-      req.body.id,
-      req.body.image,
-      req.body.video,
-      req.body.title,
-      req.body.uploader,
-      req.body.duration,
-      req.body.visits,
-      req.body.uploadDate,
-      req.body.description,
-      req.body.likes,
-      req.body.categoryId
+      id,
+      image,
+      video,
+      title,
+      uploader,
+      duration,
+      visits,
+      uploadDate,
+      description,
+      likes,
+      categoryId
     )
   );
 };

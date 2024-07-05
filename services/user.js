@@ -1,7 +1,44 @@
 const User = require("../models/user");
 const Video = require("../models/video");
+const multer = require('multer');
+const path = require('path');
 
-const { MongoClient } = require("mongodb");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    if (file.fieldname === 'video') {
+      cb(null, 'public/media/videos/');
+    } else if (file.fieldname === 'image') {
+      cb(null, 'public/media/images/');
+    }
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 100000000 },
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  }
+}).fields([{ name: 'video', maxCount: 1 }, { name: 'image', maxCount: 1 }]);
+
+
+function checkFileType(file, cb) {
+  const filetypes = /jpeg|jpg|png|gif|mp4|mov/;
+
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb('Error: Images and Videos Only!');
+  }
+}
 
 const createUser = async (username, displayName, password, image) => {
   const user = await User.findOne({ username: username });
@@ -78,19 +115,23 @@ const createUserVideo = async (
   likes,
   categoryId
 ) => {
+
+  const imageString = image.destination.replace("public/", "") + image.filename;
+  const videoString = video.destination.replace("public/", "") + video.filename;
   const newVideo = new Video({
     id,
-    image,
-    video,
+    image: imageString,
+    video: videoString,
     title,
     uploader,
     duration,
     visits,
     description,
     likes,
-    categoryId,
+    categoryId
   });
   if (uploadDate) newVideo.uploadDate = uploadDate;
+  
   return await newVideo.save();
 };
 
@@ -132,4 +173,5 @@ module.exports = {
   getUserVideo,
   updateUserVideo,
   deleteUserVideo,
+  upload
 };

@@ -3,6 +3,7 @@ var router = express.Router();
 
 const userController = require('../controllers/user');
 const { isLoggedIn } = require('../jwt/validate');
+const { upload } = require('../services/user')
 
 router.route('/')
         .get(userController.getUsers)
@@ -14,7 +15,7 @@ router.route('/:id')
         .delete(userController.deleteUser)
 
 router.route('/:id/videos').get(userController.getUserVideos)
-router.route('/:id/videos').post(isLoggedIn, userController.createUserVideo)
+router.route('/:id/videos').post(isLoggedIn, upload, userController.createUserVideo)
 
 router.route('/:id/videos/:pid').get(userController.getUserVideo)
 router.route('/:id/videos/:pid').patch(isLoggedIn, userController.updateUserVideo)
