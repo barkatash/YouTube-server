@@ -5,6 +5,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require("cors");
 app.use(cors());
 app.use(express.static('public'));
+app.use('/media', express.static(path.join(__dirname, 'media')));
 app.use(express.json());
 
 const customEnv = require("custom-env")
