@@ -14,16 +14,23 @@ const getImageBase64 = (filePath) => {
     }
 };
 
+const getFileBase64 = (filePath) => {
+    try {
+        const fileData = fs.readFileSync(filePath);
+        const base64File = Buffer.from(fileData).toString('base64');
+        const mimeType = `video/${path.extname(filePath).slice(1)}`;
+        return `data:${mimeType};base64,${base64File}`;
+    } catch (error) {
+        console.error('Error converting file to base64:', error);
+        return null;
+    }
+};
+
 const getVideo = async (id) => {
     return await Video.findById(id)
 };
 const getAllVideos = async () => {
-    const allVideos = await Video.find({})
-    return allVideos.map(video => ({
-        ...video._doc,
-        image: getImageBase64(path.join(__dirname, '..', video.image)),
-        video: `/videos/${path.basename(video.video)}`
-    }));
+    return await Video.find({})
 };
 
 const getTenNumbers = (array) => 
