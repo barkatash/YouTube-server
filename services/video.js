@@ -1,60 +1,42 @@
 const Video = require('../models/video');
 const { MoongoClient, MongoClient } = require("mongodb");
 
-// async function create() {
-//     const Client = new MongoClient("mongodb://localhost:27017");
-//     try {
-//         const db = Client.db('youtube');
-//         const
-//     }
-// }
-    
-const addVideo = async (id, image, video, title, duration, visits, uploadDate, description, likes, categoryId) => {
-    const newVideo = new Video({ id, image, video, title, duration, visits, description, likes, categoryId })
-    if (uploadDate) newVideo.uploadDate = uploadDate;
-    return await newVideo.save()
-};
 
 const getVideo = async (id) => {
     return await Video.findById(id)
 };
-
-const getVideos = async () => {
+const getAllVideos = async () => {
     return await Video.find({})
 };
 
-const updateVideo = async (id, image, video, title, duration, visits, uploadDate, description, likes, categoryId) => {
-    const newVideo = await getVideo(id)
-    if (!newVideo)
-        return null
+const getTenNumbers = (array) => 
+{
+    let counter = 10;
+    let result = [];
+    while(counter > 0){
+        const randomIndex = Math.floor(Math.random() * (array.length))
+        const isVideoAlreadyTaken = result.map(video => video.id).includes(array[randomIndex].id)
+        if (!isVideoAlreadyTaken) 
+            {
+                counter--;
+                result.push(array[randomIndex]);
+            }
+    }
 
-    newVideo.image = image
-    newVideo.video = video
-    newVideo.duration = duration
-    newVideo.image = image
-    newVideo.uploadDate = uploadDate
-    newVideo.title = title
-    newVideo.description = description
-    newVideo.visits = visits
-    newVideo.likes = likes
-    newVideo.categoryId = categoryId
-    await newVideo.save()
-    return newVideo
-};
-const deleteVideo = async (id) => {
-    const video = await getVideo(id)
-    if (!video)
-        return null
+    return result;
+}
 
-    await video.remove()
-    return video
+const compareVisits = (firstVideo, secondVideo) => secondVideo.visits - firstVideo.visits
+const getVideos = async () => {
+    const allVideos = await Video.find({});
+    const topWatchedVideos = allVideos.sort(compareVisits);
+    const otherVideos = topWatchedVideos.slice(10);
+    return topWatchedVideos.slice(0, 10).concat(getTenNumbers(otherVideos));
 };
 
 module.exports = {
-    addVideo,
+    getAllVideos,
     getVideo,
-    getVideos,
-    updateVideo,
-    deleteVideo
+    getVideos
 }
 

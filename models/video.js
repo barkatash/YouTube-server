@@ -15,11 +15,15 @@ const Video = new Schema({
     title : {
         type: String
     },
+    uploader : {
+        type: String,
+        require: true
+    },
     duration : {
         type: String
     },
     visits : {
-        type: String
+        type: Number
     },
     uploadDate : {
         type: Date,
