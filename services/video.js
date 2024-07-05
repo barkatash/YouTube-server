@@ -1,12 +1,29 @@
 const Video = require('../models/video');
-const { MoongoClient, MongoClient } = require("mongodb");
+const path = require('path');
+const fs = require('fs');
 
+const getImageBase64 = (filePath) => {
+    try {
+        const imageData = fs.readFileSync(filePath);
+        const base64Image = Buffer.from(imageData).toString('base64');
+        const mimeType = `image/${path.extname(filePath).slice(1)}`;
+        return `data:${mimeType};base64,${base64Image}`;
+    } catch (error) {
+        console.error('Error converting image to base64:', error);
+        return null;
+    }
+};
 
 const getVideo = async (id) => {
     return await Video.findById(id)
 };
 const getAllVideos = async () => {
-    return await Video.find({})
+    const allVideos = await Video.find({})
+    return allVideos.map(video => ({
+        ...video._doc,
+        image: getImageBase64(path.join(__dirname, '..', video.image)),
+        video: `/videos/${path.basename(video.video)}`
+    }));
 };
 
 const getTenNumbers = (array) => 
