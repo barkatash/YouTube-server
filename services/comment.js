@@ -25,14 +25,11 @@ const getUserComment = async(id, pid) => {
     if (comment.userName === user.username) return comment;
     return null;
 }
-const updateUserComment = async(id, pid ,description, uploadDate) => {
-    const newComment = await Comment.findById(pid)
-    const user = await User.findById(id);
-    if (!newComment)
-        return null
-    if (newComment.userName === user.username) {
+const updateUserComment = async(id, pid ,description) => {
+    const newComment = await Comment.findOne({ _id: pid })
+    const user = await User.findOne({ username: id })
+    if (user && newComment && newComment.userName === user.username) {
         newComment.description = description
-        if (uploadDate) newComment.uploadDate = uploadDate
         return newComment
     }
     return null

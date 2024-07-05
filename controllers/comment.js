@@ -16,7 +16,7 @@ const getUserComment = async (req, res) => {
     res.json(comments);
 };
 const updateUserComment = async (req, res) => {
-    const comment = await CommentService.updateUserComment(req.params.id, req.params.pid, req.body.title);
+    const comment = await CommentService.updateUserComment(req.params.id, req.params.pid, req.body.description);
     if (!comment) {
         return res.status(404).json({ errors: ['Comment not found'] });
     }
