@@ -7,7 +7,7 @@ const { upload } = require('../services/user')
 
 router.route('/')
         .get(userController.getUsers)
-        .post(userController.createUser)
+        .post(upload, userController.createUser)
 
 router.route('/:id')
         .get(userController.getUser)

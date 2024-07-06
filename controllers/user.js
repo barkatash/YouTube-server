@@ -1,14 +1,17 @@
 const userService = require("../services/user");
 
 const createUser = async (req, res) => {
-  res.json(
+  let image = null;
+  if(req.files["image"]) image = req.files["image"][0];
+  const user = res.json(
     await userService.createUser(
       req.body.username,
       req.body.displayName,
       req.body.password,
-      req.body.image
+      image
     )
   );
+  return user.username;
 };
 const getUser = async (req, res) => {
   const user = await userService.getUser(req.params.id);

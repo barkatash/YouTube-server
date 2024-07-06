@@ -48,7 +48,7 @@ const createUser = async (username, displayName, password, image) => {
   if (!user) {
     const newUser = new User({ username, displayName, password });
     newUser.image = "";
-    if (image) newUser.image = image;
+    if (image) newUser.image = image.destination.replace("public/", "") + image.filename;
     newUser.videoIdListLiked = [];
     newUser.videoIdListUnliked = [];
     newUser.commentIdListLiked = [];
