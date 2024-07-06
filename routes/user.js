@@ -18,7 +18,7 @@ router.route('/:id/videos').get(userController.getUserVideos)
 router.route('/:id/videos').post(isLoggedIn, upload, userController.createUserVideo)
 
 router.route('/:id/videos/:pid').get(userController.getUserVideo)
-router.route('/:id/videos/:pid').patch(isLoggedIn, userController.updateUserVideo)
+router.route('/:id/videos/:pid').patch(isLoggedIn, upload, userController.updateUserVideo)
 router.route('/:id/videos/:pid').delete(isLoggedIn, userController.deleteUserVideo)
 
 
