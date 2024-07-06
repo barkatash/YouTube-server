@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
       image
     )
   );
-  return user.username;
+   return user.username;
 };
 const getUser = async (req, res) => {
   const user = await userService.getUser(req.params.id);

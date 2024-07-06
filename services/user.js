@@ -100,9 +100,10 @@ const deleteUser = async (id) => {
 };
 
 const getUserVideos = async (id) => {
-  const user = await User.findOne({ id });
-  const allVideos = await Video.find({});
-  return allVideos.filter((video) => video.uploader === user.username);
+  const user = await User.findOne({ username: id});
+  if(!user) return null;
+  const userVideos = await Video.find({ uploader: id });
+  return userVideos;
 };
 
 const createUserVideo = async (
