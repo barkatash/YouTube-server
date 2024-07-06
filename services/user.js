@@ -133,6 +133,7 @@ const createUserVideo = async (
     categoryId,
   });
   if (uploadDate) newVideo.uploadDate = uploadDate;
+  
 
   return await newVideo.save();
 };
@@ -154,11 +155,11 @@ const updateUserVideo = async (
 ) => {
   const newVideo = await getUserVideo(id, pid);
   if (!newVideo) return null;
-  newVideo.image = image.destination.replace("public/", "") + image.filename;
-  newVideo.video = video.destination.replace("public/", "") + video.filename;
-  newVideo.duration = duration;
-  newVideo.title = title;
-  newVideo.description = description;
+  if(image) newVideo.image = image.destination.replace("public/", "") + image.filename;
+  if(video) newVideo.video = video.destination.replace("public/", "") + video.filename;
+  if(duration) newVideo.duration = duration;
+  if(title) newVideo.title = title;
+  if(description) newVideo.description = description;
   await newVideo.save();
   return newVideo;
 };
