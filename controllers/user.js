@@ -81,8 +81,10 @@ const getUserVideo = async (req, res) => {
 };
 const updateUserVideo = async (req, res) => {
   const { title, duration, description } = req.body;
-  const image = req.files["image"][0];
-  const video = req.files["video"][0];
+  let image = null;
+  let video = null;
+  if(req.files["image"]) image = req.files["image"][0];
+  if(req.files["video"]) video = req.files["video"][0];
   const newVideo = await userService.updateUserVideo(req.params.id, req.params.pid, image, video ,title, duration, description);
     if (!newVideo) {
         return res.status(404).json({ errors: ["Video not found"] });
