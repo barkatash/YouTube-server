@@ -15,7 +15,6 @@ const login = async (username, password) => {
 
     const data = { username: username }
     const token = jwt.sign(data, key)
-
     const response = {
         username: username,
         displayName: user.displayName,

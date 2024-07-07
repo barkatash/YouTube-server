@@ -1,14 +1,17 @@
 const userService = require("../services/user");
 
 const createUser = async (req, res) => {
-  res.json(
+  let image = null;
+  if (req.files["image"]) image = req.files["image"][0];
+  const user = res.json(
     await userService.createUser(
       req.body.username,
       req.body.displayName,
       req.body.password,
-      req.body.image
+      image
     )
   );
+  return user.username;
 };
 const getUser = async (req, res) => {
   const user = await userService.getUser(req.params.id);
@@ -25,11 +28,22 @@ const getUsers = async (req, res) => {
   res.json(users);
 };
 const updateUser = async (req, res) => {
-  const user = await userService.updateUser(req.body);
+  let image = null;
+  if (req.files["image"]) image = req.files["image"][0];
+  const user = await userService.updateUser(req.params.id, image, req.body);
   if (!user) {
     return res.status(404).json({ errors: ["User not found"] });
   }
-  res.json(user);
+  const sendUser = {
+    username: user.username,
+    displayName: user.displayName,
+    image: user.image,
+    videoIdListLiked: user.videoIdListLiked,
+    videoIdListUnliked: user.videoIdListUnliked,
+    commentIdListLiked: user.commentIdListLiked,
+    commentIdListUnliked: user.commentIdListUnliked,
+  };
+  res.json(sendUser);
 };
 const deleteUser = async (req, res) => {
   const user = await userService.deleteUser(req.params.id);
@@ -43,19 +57,32 @@ const getUserVideos = async (req, res) => {
   res.json(videos);
 };
 const createUserVideo = async (req, res) => {
+  const {
+    id,
+    title,
+    uploader,
+    duration,
+    visits,
+    uploadDate,
+    description,
+    likes,
+    categoryId,
+  } = req.body;
+  const image = req.files["image"][0];
+  const video = req.files["video"][0];
   res.json(
     await userService.createUserVideo(
-      req.body.id,
-      req.body.image,
-      req.body.video,
-      req.body.title,
-      req.body.uploader,
-      req.body.duration,
-      req.body.visits,
-      req.body.uploadDate,
-      req.body.description,
-      req.body.likes,
-      req.body.categoryId
+      id,
+      image,
+      video,
+      title,
+      uploader,
+      duration,
+      visits,
+      uploadDate,
+      description,
+      likes,
+      categoryId
     )
   );
 };
@@ -67,15 +94,43 @@ const getUserVideo = async (req, res) => {
   res.json(video);
 };
 const updateUserVideo = async (req, res) => {
-  const video = await userService.updateUserVideo(
+  const { title, duration, description } = req.body;
+  let image = null;
+  let video = null;
+  if (req.files["image"]) image = req.files["image"][0];
+  if (req.files["video"]) video = req.files["video"][0];
+  const newVideo = await userService.updateUserVideo(
     req.params.id,
     req.params.pid,
-    req.body
+    image,
+    video,
+    title,
+    duration,
+    description
   );
-  if (!video) {
+  if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }
-  res.json(video);
+  res.json(newVideo);
+};
+const updateUserLikeVideo = async (req, res) => {
+  const { newLikes } = req.body;
+  const newVideo = await userService.updateUserLikeVideo(
+    req.params.id,
+    req.params.pid,
+    newLikes
+  );
+  if (!newVideo) {
+    return res.status(404).json({ errors: ["Video not found"] });
+  }
+  res.json(newVideo);
+};
+const updateUserViewVideo = async (req, res) => {
+  const newVideo = await userService.updateUserViewVideo(req.params.pid);
+  if (!newVideo) {
+    return res.status(404).json({ errors: ["Video not found"] });
+  }
+  res.json(newVideo);
 };
 const deleteUserVideo = async (req, res) => {
   const video = await userService.deleteUserVideo(
@@ -99,4 +154,6 @@ module.exports = {
   getUserVideo,
   updateUserVideo,
   deleteUserVideo,
+  updateUserLikeVideo,
+  updateUserViewVideo
 };

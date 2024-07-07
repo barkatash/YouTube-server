@@ -20,19 +20,19 @@ const User = new Schema({
         type: String
     },
     videoIdListLiked : {
-        type: [Number],
+        type: [String],
         default: []
     },
     videoIdListUnliked : {
-        type: [Number],
+        type: [String],
         default: []
     },
     commentIdListLiked : {
-        type: [Number],
+        type: [String],
         default: []
     },
     commentIdListUnliked : {
-        type: [Number],
+        type: [String],
         default: []
     },
 });

@@ -12,5 +12,4 @@ router.route('/all')
 router.route('/:id')
         .get(videoController.getVideo)
         
-
 module.exports = router;

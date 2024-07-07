@@ -2,10 +2,12 @@ const express = require("express");
 var app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
+
 const cors = require("cors");
 app.use(cors());
 app.use(express.static('public'));
-app.use(express.json());
+
+app.use(express.json({limit : 52428800}))
 
 const customEnv = require("custom-env")
 customEnv.env(process.env.NODE_ENV, "./config");
