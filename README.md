@@ -8,6 +8,9 @@ This project was done as part of the Advanced Programming course, Bar-Ilan Unive
 This version already includes the mongoDB and served the web client.
 The Android app for this can be found here on branch main-server: https://github.com/ishay970/Project2024android
 The web client can be found here on branch main-server: https://github.com/ishay970/project2024
+According to the environment variables you should create a folder called "config" and inside to create a file called ".env.local" contains
+2 values: CONNECTION_STRING, PORT. The CONNECTION_STRING need to be the path to your mongoDB connection concat with "/youtube"
+(because thats the db name) and the PORT as you wish, i used 8080.
 
 To run the project, use "npm run start".
 Dependencies:
