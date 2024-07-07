@@ -124,8 +124,6 @@ const createUserVideo = async (
     categoryId,
   });
   if (uploadDate) newVideo.uploadDate = uploadDate;
-  
-
   return await newVideo.save();
 };
 
