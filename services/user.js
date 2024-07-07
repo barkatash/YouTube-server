@@ -60,41 +60,31 @@ const createUser = async (username, displayName, password, image) => {
 };
 
 const getUser = async (username) => {
-  const user = await User.findOne({ username: username });
-  return user;
+  return await User.findOne({ username: username });
 };
 const getUsers = async () => {
   return await User.find({});
 };
 
 const updateUser = async (
-  id,
   username,
-  displayName,
-  password,
   image,
-  videoIdListLiked,
-  videoIdListUnliked,
-  commentIdListLiked,
-  commentIdListUnliked
+  newUserData
 ) => {
   const newUser = await getUser(username);
   if (!newUser) return null;
-  newUser.username = username;
-  newUser.displayName = displayName;
-  newUser.password = password;
-  newUser.image = image;
-  newUser.videoIdListLiked = videoIdListLiked;
-  newUser.videoIdListUnliked = videoIdListUnliked;
-  newUser.commentIdListLiked = commentIdListLiked;
-  newUser.commentIdListUnliked = commentIdListUnliked;
-  await newUser.save();
-  return newUser;
+  if (newUserData.displayName) newUser.displayName = newUserData.displayName;
+  if (newUserData.displayName) newUser.password = newUserData.password;
+  if (image) newUser.image = image;
+  if (newUserData.videoIdListLiked) newUser.videoIdListLiked = newUserData.videoIdListLiked;
+  if (newUserData.videoIdListUnliked) newUser.videoIdListUnliked = newUserData.videoIdListUnliked;
+  if (newUserData.commentIdListLiked) newUser.commentIdListLiked = newUserData.commentIdListLiked;
+  if (newUserData.commentIdListUnliked) newUser.commentIdListUnliked = newUserData.commentIdListUnliked;
+  return await newUser.save();
 };
 const deleteUser = async (id) => {
   const user = await getUser(id);
   if (!user) return null;
-
   await user.deleteOne();
   return user;
 };

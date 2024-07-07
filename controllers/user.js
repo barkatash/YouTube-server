@@ -2,7 +2,7 @@ const userService = require("../services/user");
 
 const createUser = async (req, res) => {
   let image = null;
-  if(req.files["image"]) image = req.files["image"][0];
+  if (req.files["image"]) image = req.files["image"][0];
   const user = res.json(
     await userService.createUser(
       req.body.username,
@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
       image
     )
   );
-   return user.username;
+  return user.username;
 };
 const getUser = async (req, res) => {
   const user = await userService.getUser(req.params.id);
@@ -28,11 +28,22 @@ const getUsers = async (req, res) => {
   res.json(users);
 };
 const updateUser = async (req, res) => {
-  const user = await userService.updateUser(req.body);
+  let image = null;
+  if (req.files["image"]) image = req.files["image"][0];
+  const user = await userService.updateUser(req.params.id, image, req.body);
   if (!user) {
     return res.status(404).json({ errors: ["User not found"] });
   }
-  res.json(user);
+  const sendUser = {
+    username: user.username,
+    displayName: user.displayName,
+    image: user.image,
+    videoIdListLiked: user.videoIdListLiked,
+    videoIdListUnliked: user.videoIdListUnliked,
+    commentIdListLiked: user.commentIdListLiked,
+    commentIdListUnliked: user.commentIdListUnliked,
+  };
+  res.json(sendUser);
 };
 const deleteUser = async (req, res) => {
   const user = await userService.deleteUser(req.params.id);
@@ -86,13 +97,21 @@ const updateUserVideo = async (req, res) => {
   const { title, duration, description } = req.body;
   let image = null;
   let video = null;
-  if(req.files["image"]) image = req.files["image"][0];
-  if(req.files["video"]) video = req.files["video"][0];
-  const newVideo = await userService.updateUserVideo(req.params.id, req.params.pid, image, video ,title, duration, description);
-    if (!newVideo) {
-        return res.status(404).json({ errors: ["Video not found"] });
-    }
-    res.json(newVideo);
+  if (req.files["image"]) image = req.files["image"][0];
+  if (req.files["video"]) video = req.files["video"][0];
+  const newVideo = await userService.updateUserVideo(
+    req.params.id,
+    req.params.pid,
+    image,
+    video,
+    title,
+    duration,
+    description
+  );
+  if (!newVideo) {
+    return res.status(404).json({ errors: ["Video not found"] });
+  }
+  res.json(newVideo);
 };
 const deleteUserVideo = async (req, res) => {
   const video = await userService.deleteUserVideo(

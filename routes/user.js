@@ -11,8 +11,8 @@ router.route('/')
 
 router.route('/:id')
         .get(userController.getUser)
-        .patch(userController.updateUser)
-        .delete(userController.deleteUser)
+        .patch(isLoggedIn, upload, userController.updateUser)
+        .delete(isLoggedIn, userController.deleteUser)
 
 router.route('/:id/videos').get(userController.getUserVideos)
 router.route('/:id/videos').post(isLoggedIn, upload, userController.createUserVideo)
