@@ -22,5 +22,6 @@ router.route('/:id/videos/:pid').patch(isLoggedIn, upload, userController.update
 router.route('/:id/videos/:pid').delete(isLoggedIn, userController.deleteUserVideo)
 
 router.route('/:id/videos/like/:pid').patch(isLoggedIn, userController.updateUserLikeVideo)
+router.route('/:id/videos/views/:pid').patch(isLoggedIn, userController.updateUserViewVideo)
 
 module.exports = router;

@@ -133,21 +133,27 @@ const getUserVideo = async (id, pid) => {
   if (video.uploader === user.username) return video;
   return null;
 };
-const updateUserVideo = async (
+const updateUserLikeVideo = async (
   id,
   pid,
   newLikes
 ) => {
   const newVideo = await Video.findById(pid);
   const newUser = await getUser(id);
+  if (newLikes > newVideo.likes) newUser.videoIdListLiked = [...newUser.videoIdListLiked, pid];
   if (!newVideo) return null;
   if(newLikes) newVideo.likes = newLikes;
   await newVideo.save();
-  newUser.videoIdListLiked = [...newUser.videoIdListLiked, pid];
   await newUser.save();
   return newVideo;
 };
-const updateUserLikeVideo = async (
+const updateUserViewVideo = async (pid) => {
+  const newVideo = await Video.findById(pid);
+  if (!newVideo) return null;
+  newVideo.visits = newVideo.visits + 1;
+  return await newVideo.save();
+};
+const updateUserVideo = async (
   id,
   pid,
   image,
@@ -185,5 +191,6 @@ module.exports = {
   updateUserVideo,
   deleteUserVideo,
   upload,
-  updateUserLikeVideo
+  updateUserLikeVideo,
+  updateUserViewVideo
 };

@@ -115,11 +115,18 @@ const updateUserVideo = async (req, res) => {
 };
 const updateUserLikeVideo = async (req, res) => {
   const { newLikes } = req.body;
-  const newVideo = await userService.updateUserVideo(
+  const newVideo = await userService.updateUserLikeVideo(
     req.params.id,
     req.params.pid,
     newLikes
   );
+  if (!newVideo) {
+    return res.status(404).json({ errors: ["Video not found"] });
+  }
+  res.json(newVideo);
+};
+const updateUserViewVideo = async (req, res) => {
+  const newVideo = await userService.updateUserViewVideo(req.params.pid);
   if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }
@@ -147,5 +154,6 @@ module.exports = {
   getUserVideo,
   updateUserVideo,
   deleteUserVideo,
-  updateUserLikeVideo
+  updateUserLikeVideo,
+  updateUserViewVideo
 };
