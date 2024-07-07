@@ -74,8 +74,8 @@ const updateUser = async (
   const newUser = await getUser(username);
   if (!newUser) return null;
   if (newUserData.displayName) newUser.displayName = newUserData.displayName;
-  if (newUserData.displayName) newUser.password = newUserData.password;
-  if (image) newUser.image = image;
+  if (newUserData.password) newUser.password = newUserData.password;
+  if (image) newUser.image = image.destination.replace("public/", "") + image.filename;
   if (newUserData.videoIdListLiked) newUser.videoIdListLiked = newUserData.videoIdListLiked;
   if (newUserData.videoIdListUnliked) newUser.videoIdListUnliked = newUserData.videoIdListUnliked;
   if (newUserData.commentIdListLiked) newUser.commentIdListLiked = newUserData.commentIdListLiked;
