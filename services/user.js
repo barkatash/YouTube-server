@@ -117,7 +117,7 @@ const createUserVideo = async (
     video: videoString,
     title,
     uploader,
-    duration,
+    duration: "2:00",
     visits,
     description,
     likes,
