@@ -111,6 +111,7 @@ const createUserVideo = async (
 ) => {
   const imageString = image.destination.replace("public/", "") + image.filename;
   const videoString = video.destination.replace("public/", "") + video.filename;
+  console.log(video);
   const newVideo = new Video({
     id,
     image: imageString,
