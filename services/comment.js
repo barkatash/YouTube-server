@@ -30,7 +30,7 @@ const updateUserComment = async(id, pid ,description) => {
     const user = await User.findOne({ username: id })
     if (user && newComment && newComment.userName === user.username) {
         newComment.description = description
-        return newComment
+        return await newComment.save()
     }
     return null
 }
