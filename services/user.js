@@ -138,6 +138,20 @@ const getUserVideo = async (id, pid) => {
 const updateUserVideo = async (
   id,
   pid,
+  newLikes
+) => {
+  const newVideo = await Video.findById(pid);
+  const newUser = await getUser(id);
+  if (!newVideo) return null;
+  if(newLikes) newVideo.likes = newLikes;
+  await newVideo.save();
+  newUser.videoIdListLiked = [...newUser.videoIdListLiked, pid];
+  await newUser.save();
+  return newVideo;
+};
+const updateUserLikeVideo = async (
+  id,
+  pid,
   image,
   video,
   title,
@@ -173,4 +187,5 @@ module.exports = {
   updateUserVideo,
   deleteUserVideo,
   upload,
+  updateUserLikeVideo
 };
