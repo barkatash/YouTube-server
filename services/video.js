@@ -36,6 +36,7 @@ const getAllVideos = async () => {
 const getTenNumbers = (array) => 
 {
     let counter = 10;
+    if (array.length < 10) counter = array.length;
     let result = [];
     while(counter > 0){
         const randomIndex = Math.floor(Math.random() * (array.length))
