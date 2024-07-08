@@ -1,5 +1,4 @@
 # project2024-server
-
 Ishay, Sagi, and Bar project
 
 project state: in process
@@ -18,5 +17,11 @@ JWT Bearer
 express
 cors
 bodyParser
+mongoose
+mongodb
+multer
+jsonwebtoken
+custom-env
+dotenv
 
 you also need to have the mongo Db and to get the videos, users and all the data so you should run the script named: script.js from this repository.
