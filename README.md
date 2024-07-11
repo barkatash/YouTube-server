@@ -1,7 +1,7 @@
 # project2024-server
 Ishay, Sagi, and Bar project
 
-project state: in process
+project state: done
 A web server for our YouTube, serving the web and android clients.
 This project was done as part of the Advanced Programming course, Bar-Ilan University, 2024.
 This version already includes the mongoDB and served the web client.
