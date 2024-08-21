@@ -1,4 +1,5 @@
 const userService = require("../services/user");
+const { connectToCppServer } = require('../cppClient');
 
 const createUser = async (req, res) => {
   let image = null;
@@ -130,7 +131,11 @@ const updateUserViewVideo = async (req, res) => {
   if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }
-  res.json(newVideo);
+  const message = `User ${req.params.id} watched video ${req.params.pid}`;
+  const recommendations = await connectToCppServer(message);
+  console.log(recommendations)
+  res.json({ video: newVideo, recommendations });
+  //res.json(newVideo);
 };
 const deleteUserVideo = async (req, res) => {
   const video = await userService.deleteUserVideo(

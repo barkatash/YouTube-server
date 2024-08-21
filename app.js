@@ -1,4 +1,5 @@
 const express = require("express");
+
 var app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,6 +24,7 @@ const user = require('./routes/user');
 const comment = require('./routes/comment');
 const category = require('./routes/category');
 const token = require('./routes/token')
+
 
 app.use("/api/videos", videos);
 app.use("/api/users", user);
