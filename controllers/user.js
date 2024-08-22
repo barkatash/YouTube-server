@@ -134,8 +134,8 @@ const updateUserViewVideo = async (req, res) => {
   const message = `User ${req.params.id} watched video ${req.params.pid}`;
   const recommendations = await connectToCppServer(message);
   console.log(recommendations)
-  res.json({ video: newVideo, recommendations });
-  //res.json(newVideo);
+  //res.json({ video: newVideo, recommendations });
+  res.json(newVideo);
 };
 const deleteUserVideo = async (req, res) => {
   const video = await userService.deleteUserVideo(
