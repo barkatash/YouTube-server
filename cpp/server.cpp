@@ -21,74 +21,65 @@ mutex dataMutex;
 unordered_map<string, vector<string>> userWatchedVideos;
 unordered_map<string, int> videoPopularity;
 
-vector<string> get_random_videos(const vector<string> &videoList, int count)
-{
-    vector<string> randomVideos;
-    if (videoList.size() <= count)
-    {
-        return videoList;
+vector<string> get_random_videos(const vector<Video> &videoList, int count) {
+    vector<string> videoIds;
+    for (const auto &video : videoList) {
+        videoIds.push_back(video._id);
     }
 
-    while (randomVideos.size() < count)
-    {
-        auto randomVideo = videoList[rand() % videoList.size()];
-        if (find(randomVideos.begin(), randomVideos.end(), randomVideo) == randomVideos.end())
-        {
+    vector<string> randomVideos;
+    if (videoIds.size() <= count) {
+        return videoIds;
+    }
+
+    while (randomVideos.size() < count) {
+        auto randomVideo = videoIds[rand() % videoIds.size()];
+        if (find(randomVideos.begin(), randomVideos.end(), randomVideo) == randomVideos.end()) {
             randomVideos.push_back(randomVideo);
         }
     }
     return randomVideos;
 }
 
-vector<string> get_recommendations(const json &userList, const string &userId, int requiredCount)
-{
+vector<string> get_recommendations(const vector<User> &userList, const string &userId, const vector<Video> &videoList, int requiredCount) {
     unordered_map<string, int> videoMatchCount;
     vector<string> recommendedVideos;
+    vector<string> currentUserWatchedVideos = userWatchedVideos[userId];
 
-    for (const auto &user : userList)
-    {
-        string otherUserId = user["id"];
-        if (otherUserId != userId)
-        {
-            auto watchedVideos = user["watchedVideosIdList"].get<vector<string>>();
+    for (const auto &user : userList) {
+        string otherUserId = user.username;
+        if (otherUserId != userId) {
+            auto watchedVideos = user.watchedVideosIdList;
             int matchCount = 0;
-            for (const auto &videoId : watchedVideos)
-            {
-                if (find(userWatchedVideos[userId].begin(), userWatchedVideos[userId].end(), videoId) != userWatchedVideos[userId].end())
-                {
+            for (const auto &videoId : watchedVideos) {
+                if (find(currentUserWatchedVideos.begin(), currentUserWatchedVideos.end(), videoId) != currentUserWatchedVideos.end()) {
                     matchCount++;
                 }
             }
 
-            if (matchCount >= 3)
-            {
-                for (const auto &videoId : watchedVideos)
-                {
+            if (matchCount >= 3) {
+                for (const auto &videoId : watchedVideos) {
                     videoPopularity[videoId]++;
                 }
             }
         }
     }
 
-    // Sort videos by popularity
     vector<pair<string, int>> sortedVideos(videoPopularity.begin(), videoPopularity.end());
-    sort(sortedVideos.begin(), sortedVideos.end(), [](const auto &a, const auto &b)
-         { return a.second > b.second; });
+    sort(sortedVideos.begin(), sortedVideos.end(), [](const auto &a, const auto &b) {
+        return a.second > b.second;
+    });
 
-    // Collect the most popular videos
-    for (const auto &video : sortedVideos)
-    {
+
+    for (const auto &video : sortedVideos) {
         if (recommendedVideos.size() >= requiredCount)
             break;
         recommendedVideos.push_back(video.first);
     }
 
-    // If not enough recommendations, add random videos
-    if (recommendedVideos.size() < requiredCount)
-    {
-        vector<string> videoList = {"video1", "video2", "video3", "video4", "video5", "video6", "video7", "video8", "video9", "video10"};
-        vector<string> randomVideos = get_random_videos(videoList, requiredCount - recommendedVideos.size());
-        recommendedVideos.insert(recommendedVideos.end(), randomVideos.begin(), randomVideos.end());
+    if (recommendedVideos.size() < requiredCount) {
+        vector<string> videoIds = get_random_videos(videoList, requiredCount - recommendedVideos.size());
+        recommendedVideos.insert(recommendedVideos.end(), videoIds.begin(), videoIds.end());
     }
 
     return recommendedVideos;
@@ -125,21 +116,38 @@ void handle_client(int client_sock)
         vector<Video> videoList = j["videoList"].get<vector<Video>>();
         vector<User> userList = j["userList"].get<vector<User>>();
 
-        cout << "Received User ID: " << userId << endl;
-        cout << "Received Video ID: " << videoId << endl;
-        cout << "Received Video List: " << endl;
-        for (const auto &video : videoList)
-        {
-            cout << "Video Title: " << video.title << endl;
-        }
+        // cout << "Received User ID: " << userId << endl;
+        // cout << "Received Video ID: " << videoId << endl;
+        // cout << "Received Video List: " << endl;
+        // for (const auto &video : videoList)
+        // {
+        //     cout << "Video Title: " << video.title << endl;
+        // }
 
-        cout << "Received User List: " << endl;
+        // cout << "Received User List: " << endl;
+        // for (const auto &user : userList)
+        // {
+        //     cout << "User Display Name: " << user.displayName << endl;
+        // }
+
+        userWatchedVideos.clear();
         for (const auto &user : userList)
         {
-            cout << "User Display Name: " << user.displayName << endl;
+            string id = user.username;
+            vector<string> watchedVideos = user.watchedVideosIdList;
+            userWatchedVideos[id] = watchedVideos;
         }
-        string response = "Recommendation1;Recommendation2;Recommendation3";
-        write(client_sock, response.c_str(), response.length());
+        vector<string> recommendations = get_recommendations(userList, userId, videoList, 10);
+
+        stringstream response;
+        for (size_t i = 0; i < recommendations.size(); ++i) {
+            if (i > 0) response << ";";
+            response << recommendations[i];
+        }
+        string response_str = response.str();
+        write(client_sock, response_str.c_str(), response_str.length());
+        // string response = "Recommendation1;Recommendation2;Recommendation3";
+        // write(client_sock, response.c_str(), response.length());
     }
     catch (json::exception &e)
     {
