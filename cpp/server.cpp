@@ -42,7 +42,7 @@ vector<string> get_random_videos(const vector<Video> &videoList, int count) {
 }
 
 vector<string> get_recommendations(const vector<User> &userList, const string &userId, const vector<Video> &videoList, int requiredCount) {
-    unordered_map<string, int> videoMatchCount;
+        unordered_map<string, int> videoMatchCount;
     vector<string> recommendedVideos;
     vector<string> currentUserWatchedVideos = userWatchedVideos[userId];
 
@@ -59,17 +59,28 @@ vector<string> get_recommendations(const vector<User> &userList, const string &u
 
             if (matchCount >= 3) {
                 for (const auto &videoId : watchedVideos) {
-                    videoPopularity[videoId]++;
+                    videoMatchCount[videoId]++;
                 }
             }
         }
     }
 
-    vector<pair<string, int>> sortedVideos(videoPopularity.begin(), videoPopularity.end());
-    sort(sortedVideos.begin(), sortedVideos.end(), [](const auto &a, const auto &b) {
-        return a.second > b.second;
-    });
+    unordered_map<string, int> videoIdToVisitCount;
+    for (const auto &video : videoList) {
+        videoIdToVisitCount[video._id] = video.visits;
+    }
+    vector<pair<string, int>> sortedVideos;
+    for (const auto &entry : videoMatchCount) {
+        sortedVideos.push_back({entry.first, videoIdToVisitCount[entry.first]});
+    }
 
+
+    sort(sortedVideos.begin(), sortedVideos.end(), [](const auto &a, const auto &b) {
+        if (a.second != b.second) {
+            return a.second > b.second;
+        }
+        return a.first > b.first;
+    });
 
     for (const auto &video : sortedVideos) {
         if (recommendedVideos.size() >= requiredCount)
