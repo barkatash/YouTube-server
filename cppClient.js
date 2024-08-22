@@ -1,6 +1,6 @@
 const net = require('net');
 
-const connectToCppServer = (message, callback) => {
+const connectToCppServer = (userId, videoId, videoList, userList) => {
   return new Promise((resolve, reject) => {
     const host = '127.0.0.1';
     const port = 5555;
@@ -8,14 +8,27 @@ const connectToCppServer = (message, callback) => {
 
     client.connect(port, host, () => {
       console.log('Connected to C++ server');
-      client.write(message);
+      const payload = {
+        userId,
+        videoId,
+        videoList,
+        userList
+      };
+
+      const jsonData = JSON.stringify(payload);
+      client.write(jsonData);
     });
 
     client.on('data', (data) => {
-      const recommendations = data.toString().split(';');
-      console.log('Recommended videos:', recommendations);
+      const response = data.toString().split(';');
+      if (response.length > 0) {
+        const recommendations = response;
+        console.log('Recommended videos:', recommendations);
 
-      resolve(recommendations);
+        resolve(recommendations);
+      } else {
+        reject(new Error('No recommendations received'));
+      }
       client.destroy();
     });
 
