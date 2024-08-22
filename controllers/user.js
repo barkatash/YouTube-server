@@ -128,7 +128,11 @@ const updateUserLikeVideo = async (req, res) => {
   res.json(newVideo);
 };
 const updateUserViewVideo = async (req, res) => {
-  const newVideo = await userService.updateUserViewVideo(req.params.pid);
+  const newVideo = await userService.updateUserViewVideo(req.params.id, req.params.pid);
+  if (!newVideo) {
+    return res.status(404).json({ errors: ["Video not found"] });
+  }
+
   if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }

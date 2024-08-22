@@ -15,7 +15,6 @@ const connectToCppServer = (userId, videoId, videoList, userList) => {
         userList
       };
       const jsonData = JSON.stringify(payload);
-      console.log(jsonData);
       client.write(jsonData + '\n'); 
     });
 
@@ -24,7 +23,6 @@ const connectToCppServer = (userId, videoId, videoList, userList) => {
       if (response.length > 0) {
         const recommendations = response;
         console.log('Recommended videos:', recommendations);
-
         resolve(recommendations);
       } else {
         reject(new Error('No recommendations received'));
