@@ -148,10 +148,15 @@ const updateUserLikeVideo = async (
   await newUser.save();
   return newVideo;
 };
-const updateUserViewVideo = async (pid) => {
+const updateUserViewVideo = async (id, pid) => {
   const newVideo = await Video.findById(pid);
-  if (!newVideo) return null;
+  const newUser = await User.findOne({ username: id });
+  if (!newVideo || !newUser) return null;
   newVideo.visits = newVideo.visits + 1;
+  let newWatchedVideosIdList = newUser.watchedVideosIdList;
+  if (!newWatchedVideosIdList.includes(pid)) newWatchedVideosIdList.push(pid);
+  newUser.watchedVideosIdList = newWatchedVideosIdList;
+  await newUser.save();
   return await newVideo.save();
 };
 const updateUserVideo = async (
