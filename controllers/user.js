@@ -132,7 +132,6 @@ const updateUserViewVideo = async (req, res) => {
   if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }
-
   if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }
