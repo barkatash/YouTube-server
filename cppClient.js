@@ -14,9 +14,9 @@ const connectToCppServer = (userId, videoId, videoList, userList) => {
         videoList,
         userList
       };
-
       const jsonData = JSON.stringify(payload);
-      client.write(jsonData);
+      console.log(jsonData);
+      client.write(jsonData + '\n'); 
     });
 
     client.on('data', (data) => {
