@@ -156,7 +156,6 @@ const updateUserViewVideo = async (id, pid) => {
   let newWatchedVideosIdList = newUser.watchedVideosIdList;
   if (!newWatchedVideosIdList.includes(pid)) newWatchedVideosIdList.push(pid);
   newUser.watchedVideosIdList = newWatchedVideosIdList;
-  console.log("how many");
   await newUser.save();
   return await newVideo.save();
 };

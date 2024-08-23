@@ -1,6 +1,6 @@
 const net = require('net');
 
-const connectToCppServer = (userId, videoId, videoList, userList) => {
+const connectToCppServer = (userId, videoList, userList) => {
   return new Promise((resolve, reject) => {
     const host = '127.0.0.1';
     const port = 5555;
@@ -10,7 +10,6 @@ const connectToCppServer = (userId, videoId, videoList, userList) => {
       console.log('Connected to C++ server');
       const payload = {
         userId,
-        videoId,
         videoList,
         userList
       };
