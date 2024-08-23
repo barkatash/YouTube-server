@@ -42,7 +42,7 @@ vector<string> get_random_videos(const vector<Video> &videoList, int count) {
 }
 
 vector<string> get_recommendations(const vector<User> &userList, const string &userId, const vector<Video> &videoList, int requiredCount) {
-        unordered_map<string, int> videoMatchCount;
+    unordered_map<string, int> videoMatchCount;
     vector<string> recommendedVideos;
     vector<string> currentUserWatchedVideos = userWatchedVideos[userId];
 
@@ -73,8 +73,6 @@ vector<string> get_recommendations(const vector<User> &userList, const string &u
     for (const auto &entry : videoMatchCount) {
         sortedVideos.push_back({entry.first, videoIdToVisitCount[entry.first]});
     }
-
-
     sort(sortedVideos.begin(), sortedVideos.end(), [](const auto &a, const auto &b) {
         if (a.second != b.second) {
             return a.second > b.second;
@@ -123,23 +121,8 @@ void handle_client(int client_sock)
         json j = json::parse(received_data);
 
         string userId = j["userId"].get<string>();
-        string videoId = j["videoId"].get<string>();
         vector<Video> videoList = j["videoList"].get<vector<Video>>();
         vector<User> userList = j["userList"].get<vector<User>>();
-
-        // cout << "Received User ID: " << userId << endl;
-        // cout << "Received Video ID: " << videoId << endl;
-        // cout << "Received Video List: " << endl;
-        // for (const auto &video : videoList)
-        // {
-        //     cout << "Video Title: " << video.title << endl;
-        // }
-
-        // cout << "Received User List: " << endl;
-        // for (const auto &user : userList)
-        // {
-        //     cout << "User Display Name: " << user.displayName << endl;
-        // }
 
         userWatchedVideos.clear();
         for (const auto &user : userList)
@@ -157,8 +140,7 @@ void handle_client(int client_sock)
         }
         string response_str = response.str();
         write(client_sock, response_str.c_str(), response_str.length());
-        // string response = "Recommendation1;Recommendation2;Recommendation3";
-        // write(client_sock, response.c_str(), response.length());
+
     }
     catch (json::exception &e)
     {

@@ -23,7 +23,6 @@ struct Video {
     int likes;
     vector<int> categoryId;
 
-    // To support JSON parsing
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(Video, _id, id, image, video, title, uploader, duration, visits, uploadDate, description, likes, categoryId)
 };
 
@@ -44,4 +43,4 @@ struct User {
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(User, _id, username, displayName, password, videoIdListLiked, videoIdListUnliked, commentIdListLiked, commentIdListUnliked, image, __v, watchedVideosIdList)
 };
 
-#endif // MODELS_HPP
+#endif
