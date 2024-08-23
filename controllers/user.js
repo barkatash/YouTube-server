@@ -132,16 +132,17 @@ const updateUserViewVideo = async (req, res) => {
   if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }
-
-  if (!newVideo) {
-    return res.status(404).json({ errors: ["Video not found"] });
-  }
   const users = await userService.getUsers();
   const videos = await videoService.getAllVideos();
 
-  const recommendations = await connectToCppServer(req.params.id, req.params.pid, videos, users);
-  console.log(recommendations);
+  const recommendations = await connectToCppServer(req.params.id, videos, users);
   res.json({ video: newVideo, recommendations });
+};
+const getRecommendations = async (req, res) => {
+  const users = await userService.getUsers();
+  const videos = await videoService.getAllVideos();
+  const recommendations = await connectToCppServer(req.params.id, videos, users);
+  res.json({ recommendations });
 };
 const deleteUserVideo = async (req, res) => {
   const video = await userService.deleteUserVideo(
@@ -154,7 +155,9 @@ const deleteUserVideo = async (req, res) => {
   res.json(video);
 };
 
+
 module.exports = {
+  getRecommendations,
   createUser,
   getUser,
   getUsers,
