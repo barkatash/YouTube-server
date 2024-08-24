@@ -1,4 +1,6 @@
 const userService = require("../services/user");
+const videoService = require("../services/video");
+const { connectToCppServer } = require('../cppClient');
 
 const createUser = async (req, res) => {
   let image = null;
@@ -126,11 +128,25 @@ const updateUserLikeVideo = async (req, res) => {
   res.json(newVideo);
 };
 const updateUserViewVideo = async (req, res) => {
-  const newVideo = await userService.updateUserViewVideo(req.params.pid);
+  const newVideo = await userService.updateUserViewVideo(req.params.id, req.params.pid);
   if (!newVideo) {
     return res.status(404).json({ errors: ["Video not found"] });
   }
-  res.json(newVideo);
+  const users = await userService.getUsers();
+  const videos = await videoService.getAllVideos();
+
+  const recommendedVideoIds = await connectToCppServer(req.params.id, videos, users);
+  const allVideos = await videoService.getAllVideos();
+  const recommendedVideos = allVideos.filter(video => recommendedVideoIds.includes(video._id.toString()))
+  res.json({ video: newVideo, recommendations: recommendedVideos });
+};
+const getRecommendations = async (req, res) => {
+  const users = await userService.getUsers();
+  const videos = await videoService.getAllVideos();
+  const recommendedVideoIds = await connectToCppServer(req.params.id, videos, users);
+  const allVideos = await videoService.getAllVideos();
+  const recommendedVideos = allVideos.filter(video => recommendedVideoIds.includes(video._id.toString()))
+  res.json({ recommendations: recommendedVideos });
 };
 const deleteUserVideo = async (req, res) => {
   const video = await userService.deleteUserVideo(
@@ -143,7 +159,9 @@ const deleteUserVideo = async (req, res) => {
   res.json(video);
 };
 
+
 module.exports = {
+  getRecommendations,
   createUser,
   getUser,
   getUsers,
