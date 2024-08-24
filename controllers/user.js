@@ -141,8 +141,10 @@ const updateUserViewVideo = async (req, res) => {
 const getRecommendations = async (req, res) => {
   const users = await userService.getUsers();
   const videos = await videoService.getAllVideos();
-  const recommendations = await connectToCppServer(req.params.id, videos, users);
-  res.json({ recommendations });
+  const recommendedVideoIds = await connectToCppServer(req.params.id, videos, users);
+  const allVideos = await videoService.getAllVideos();
+  const recommendedVideos = allVideos.filter(video => recommendedVideoIds.includes(video._id.toString()))
+  res.json({ recommendations: recommendedVideos });
 };
 const deleteUserVideo = async (req, res) => {
   const video = await userService.deleteUserVideo(

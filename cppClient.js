@@ -21,7 +21,6 @@ const connectToCppServer = (userId, videoList, userList) => {
       const response = data.toString().split(';');
       if (response.length > 0) {
         const recommendations = response;
-        console.log('Recommended videos:', recommendations);
         resolve(recommendations);
       } else {
         reject(new Error('No recommendations received'));
