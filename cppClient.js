@@ -2,8 +2,8 @@ const net = require('net');
 
 const connectToCppServer = (userId, videoList, userList) => {
   return new Promise((resolve, reject) => {
-    const host = '127.0.0.1';
-    const port = 5555;
+    const host = '0.0.0.0';
+    const port = 3333;
     const client = new net.Socket();
 
     client.connect(port, host, () => {
