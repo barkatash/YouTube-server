@@ -179,16 +179,13 @@ int main()
         perror("Error listening to socket");
         return -1;
     }
-    cout << "Server is listening on port " << server_port << endl;
     vector<thread> threads;
     while (true)
     {
         sockaddr_in client_sin;
         unsigned int addr_len = sizeof(client_sin);
-        std::cout << "Waiting for client connection..." << std::endl;
         int client_sock = accept(sock, (struct sockaddr *)&client_sin, &addr_len);
         std::cout << client_sin.sin_port << std::endl;
-        std::cout << "123" << std::endl;
         if (client_sock < 0)
         {
             perror("Error accepting client");
