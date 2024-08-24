@@ -1,0 +1,4 @@
+to compile the cpp server you should cd to the cpp folder and run in terminal:
+g++ -std=c++14 -pthread server.cpp -o server
+to run it you run: 
+./server
