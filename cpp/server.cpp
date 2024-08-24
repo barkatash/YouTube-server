@@ -185,7 +185,6 @@ int main()
         sockaddr_in client_sin;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *)&client_sin, &addr_len);
-        std::cout << client_sin.sin_port << std::endl;
         if (client_sock < 0)
         {
             perror("Error accepting client");
