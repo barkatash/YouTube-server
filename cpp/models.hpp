@@ -39,7 +39,6 @@ struct User {
     int __v;
     vector<string> watchedVideosIdList;
 
-    // To support JSON parsing
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(User, _id, username, displayName, password, videoIdListLiked, videoIdListUnliked, commentIdListLiked, commentIdListUnliked, image, __v, watchedVideosIdList)
 };
 
