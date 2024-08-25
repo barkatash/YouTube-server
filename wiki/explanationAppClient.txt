@@ -6,8 +6,8 @@ username: bar
 password: 12345678
 
 
-*For login you press on "Login" button in the bottom of the home page.
-*For sign in with new user you press on "Login" button in the bottom of the home page and then on "sign in" button.
-*For uploading a video you need to be connected and press on "New" button in the bottom of the home page.
+*For login you press on "Login" button on the bottom of the home page.
+*For sign in with new user you press on "Login" button on the bottom of the home page and then on "sign in" button.
+*For uploading a video you need to be connected and press on "New" button on the bottom of the home page.
 *In order to delete or edit a video u need to be logged in and the owner of the video, then on the homepage you
 click on the bin/pencil button to the video side.
