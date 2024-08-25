@@ -11,7 +11,14 @@ According to the environment variables you should create a folder called "config
 2 values: CONNECTION_STRING, PORT. The CONNECTION_STRING need to be the path to your mongoDB connection concat with "/youtube"
 (because thats the db name) and the PORT as you wish, i used 8080.
 
-To run the project, use "npm run start".
+The server with cpp server is on cpp-server branch (this one).
+To compile it run thie commend from the cpp folder:
+g++ -std=c++14 -pthread server.cpp -o server
+To run the cpp server run: ./server 
+from the cpp folder.
+The cpp server is listening on port 3333.
+
+To run the js server, use "npm run start".
 Dependencies:
 JWT Bearer
 express
