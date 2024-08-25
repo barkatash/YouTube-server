@@ -11,5 +11,8 @@ router.route('/all')
 
 router.route('/:id')
         .get(videoController.getVideo)
+
+router.route('/recommendations').post(videoController.getRecommendations)
+
         
 module.exports = router;
