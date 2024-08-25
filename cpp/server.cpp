@@ -45,7 +45,13 @@ vector<string> get_recommendations(const vector<User> &userList, const string &u
     unordered_map<string, int> videoMatchCount;
     vector<string> recommendedVideos;
     vector<string> currentUserWatchedVideos = userWatchedVideos[userId];
-
+    
+    if (userId.length() <= 0) {
+        vector<string> videoIds = get_random_videos(videoList, requiredCount - recommendedVideos.size());
+        recommendedVideos.insert(recommendedVideos.end(), videoIds.begin(), videoIds.end());
+        return recommendedVideos;
+    }
+    
     for (const auto &user : userList) {
         string otherUserId = user.username;
         if (otherUserId != userId) {
@@ -90,6 +96,7 @@ vector<string> get_recommendations(const vector<User> &userList, const string &u
         vector<string> videoIds = get_random_videos(videoList, requiredCount - recommendedVideos.size());
         recommendedVideos.insert(recommendedVideos.end(), videoIds.begin(), videoIds.end());
     }
+
 
     return recommendedVideos;
 }
