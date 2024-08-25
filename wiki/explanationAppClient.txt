@@ -1,6 +1,5 @@
 If you want to run the app client also you need to use the repository Project2024android on branch part4.
 Then run the app in android studio.
-Only connected users can see their recommended videos so u need to connect.
 Some user to connect can be:
 username: bar
 password: 12345678

@@ -1,7 +1,6 @@
 If you want to run the web client also instead of just watching it served from the server
 you need to use the repository project2024 on branch part4.
 Then run in terminal npm run start.
-Only connected users can see their recommended videos so u need to connect.
 Some user to connect can be:
 username: bar
 password: 12345678
