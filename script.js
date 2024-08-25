@@ -14,34 +14,151 @@ db.categories.insertMany([
   ]);
 
 
-db.users.insertMany([
-  { username: "NBA", displayName: "NBA", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: ""},
-  {username: "check", displayName: "checking", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720342307708.png"},
-  {username: "JustinBieber", displayName: "JustinBieber", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/justin2.jpg"},
-  {username: "bar", displayName: "bar", password: "78495210", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720342723152.png"},
-  {username: "Rihanna", displayName: "Rihanna", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720345943695.jpeg"},
-  {username: "EyalGolanOfficial", displayName: "EyalGolanOfficial", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720346048327.jpg"},
-  {username: "BuzzFeedVideo", displayName: "BuzzFeedVideo", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720346151472.jpg"},
-  {username: "EdSheeran", displayName: "Ed Sheeran", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720346213158.jpg"},
-  {username: "EurovisionSongContest", displayName: "EurovisionSongContest", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720346449911.jpeg"},
-  {username: "MaccabiHealthcare", displayName: "MaccabiHealthcare", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720346523880.jpeg"},
-  {username: "OsherCohenMusic", displayName: "OsherCohenMusic", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720346715134.jpeg"},
-  {username: "ProgrammingwithMosh", displayName: "ProgrammingwithMosh",password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720347693337.jpg"},
-  {username: "BrunoMars", displayName: "BrunoMars", password: "12345678", videoIdListLiked: [], videoIdListUnliked: [],
-  commentIdListLiked: [], commentIdListUnliked: [], image: "media/images/image-1720349737935.jpg"}
-]);
+  db.users.insertMany([
+    { 
+      username: "NBA", 
+      displayName: "NBA", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "",
+      watchedVideosIdList: ["66845812869c60664ce909b3"]
+    },
+    { 
+      username: "check", 
+      displayName: "checking", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720342307708.png",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "JustinBieber", 
+      displayName: "JustinBieber", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/justin2.jpg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "bar", 
+      displayName: "bar", 
+      password: "78495210", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720342723152.png",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "Rihanna", 
+      displayName: "Rihanna", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720345943695.jpeg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "EyalGolanOfficial", 
+      displayName: "EyalGolanOfficial", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720346048327.jpg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "BuzzFeedVideo", 
+      displayName: "BuzzFeedVideo", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720346151472.jpg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "EdSheeran", 
+      displayName: "Ed Sheeran", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720346213158.jpg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "EurovisionSongContest", 
+      displayName: "EurovisionSongContest", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720346449911.jpeg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "MaccabiHealthcare", 
+      displayName: "MaccabiHealthcare", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720346523880.jpeg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "OsherCohenMusic", 
+      displayName: "OsherCohenMusic", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720346715134.jpeg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "ProgrammingwithMosh", 
+      displayName: "ProgrammingwithMosh",
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720347693337.jpg",
+      watchedVideosIdList: []
+    },
+    { 
+      username: "BrunoMars", 
+      displayName: "BrunoMars", 
+      password: "12345678", 
+      videoIdListLiked: [], 
+      videoIdListUnliked: [],
+      commentIdListLiked: [], 
+      commentIdListUnliked: [], 
+      image: "media/images/image-1720349737935.jpg",
+      watchedVideosIdList: []
+    }
+  ]);
 
 db.videos.insertMany([{
   id: 2, image: "media/images/baby.png", video: "media/videos/video2.mp4", title: "Justin Bieber - Baby", uploader: "JustinBieber",

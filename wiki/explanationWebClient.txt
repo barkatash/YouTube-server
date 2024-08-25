@@ -1,0 +1,15 @@
+If you want to run the web client also instead of just watching it served from the server
+you need to use the repository project2024 on branch part4.
+Then run in terminal npm run start.
+Only connected users can see their recommended videos so u need to connect.
+Some user to connect can be:
+username: bar
+password: 12345678
+
+*For login you press on the person icon button on the upper right corner of the home page.
+*For sign in with new user you press on Login button and then on "sign in" button.
+*For uploading a video you need to be connected and press on camra button on the upper right corner of the home page.
+*In order to delete or edit a video u need to be logged in and the owner of the video, then on the homepage you
+click on the 3 points button to the video side.
+
+

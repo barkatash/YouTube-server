@@ -1,0 +1,11 @@
+First you should be in the repository project2024-server on branch called cpp-server.
+For running the cpp server you need to be in wsl or some Linux environment.
+In order to compile the cpp server you should cd to the cpp folder and run in terminal:
+g++ -std=c++14 -pthread server.cpp -o server
+In order to run it you run: 
+./server
+
+The cpp server run on port 3333.
+
+
+
