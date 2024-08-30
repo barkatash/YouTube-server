@@ -36,10 +36,9 @@ struct User {
     vector<string> commentIdListLiked;
     vector<string> commentIdListUnliked;
     string image;
-    int __v;
     vector<string> watchedVideosIdList;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(User, _id, username, displayName, password, videoIdListLiked, videoIdListUnliked, commentIdListLiked, commentIdListUnliked, image, __v, watchedVideosIdList)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(User, _id, username, displayName, password, videoIdListLiked, videoIdListUnliked, commentIdListLiked, commentIdListUnliked, image, watchedVideosIdList)
 };
 
 #endif
