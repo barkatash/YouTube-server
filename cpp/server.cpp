@@ -67,7 +67,7 @@ vector<string> get_recommendations(const vector<User> &userList, const string &u
                 for (const auto &videoId : watchedVideos) {
                     if (find(currentUserWatchedVideos.begin(), currentUserWatchedVideos.end(), videoId) == currentUserWatchedVideos.end()) {
                         videoMatchCount[videoId]++;
-                    }                
+                    }
                 }
             }
         }
