@@ -51,7 +51,7 @@ db.categories.insertMany([
     { 
       username: "bar", 
       displayName: "bar", 
-      password: "78495210", 
+      password: "12345678", 
       videoIdListLiked: [], 
       videoIdListUnliked: [],
       commentIdListLiked: [], 
