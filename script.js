@@ -24,7 +24,7 @@ db.categories.insertMany([
       commentIdListLiked: [], 
       commentIdListUnliked: [], 
       image: "",
-      watchedVideosIdList: ["66845812869c60664ce909b3"]
+      watchedVideosIdList: []
     },
     { 
       username: "check", 
