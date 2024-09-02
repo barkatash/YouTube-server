@@ -20,6 +20,7 @@ from the cpp folder.
 The cpp server is listening on port 3333.
 
 To run the js server, use "npm run start".
+*You also need to have the mongo Db and to get the videos, users and all the data so you should run the script named: script.js from this branch.
 Dependencies:
 JWT Bearer
 express
@@ -31,5 +32,3 @@ multer
 jsonwebtoken
 custom-env
 dotenv
-
-you also need to have the mongo Db and to get the videos, users and all the data so you should run the script named: script.js from this repository.
