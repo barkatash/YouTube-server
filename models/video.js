@@ -20,23 +20,28 @@ const Video = new Schema({
         require: true
     },
     duration : {
-        type: String
+        type: String,
+        default: "2:00"
     },
     visits : {
-        type: Number
+        type: Number,
+        default: 0
     },
     uploadDate : {
         type: Date,
         default: Date.now
     },
     description : {
-        type: String
+        type: String,
+        default: ""
     },
     likes : {
-        type: Number
+        type: Number,
+        default: 0
     },
     categoryId : {
         type: [Number],
+        default: []
     },
 });
 module.exports = mongoose.model('Video', Video);
