@@ -7,7 +7,6 @@ const connectToCppServer = (userId, videoList, userList) => {
     const client = new net.Socket();
 
     client.connect(port, host, () => {
-      console.log('Connected to C++ server');
       const payload = {
         userId,
         videoList,
@@ -34,7 +33,7 @@ const connectToCppServer = (userId, videoList, userList) => {
     });
 
     client.on('close', () => {
-      console.log('Connection to C++ server closed');
+    
     });
   });
 };
