@@ -20,7 +20,8 @@ const Video = new Schema({
         require: true
     },
     duration : {
-        type: String
+        type: String,
+        default: "2:00"
     },
     visits : {
         type: Number,
@@ -31,7 +32,8 @@ const Video = new Schema({
         default: Date.now
     },
     description : {
-        type: String
+        type: String,
+        default: ""
     },
     likes : {
         type: Number,
