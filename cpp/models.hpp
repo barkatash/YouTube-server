@@ -11,19 +11,14 @@ using namespace std;
 
 struct Video {
     string _id;
-    int id;
     string image;
     string video;
     string title;
     string uploader;
     string duration;
     int visits;
-    string uploadDate;
-    string description;
-    int likes;
-    vector<int> categoryId;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Video, _id, id, image, video, title, uploader, duration, visits, uploadDate, description, likes, categoryId)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Video, _id, image, video, title, uploader, duration, visits)
 };
 
 struct User {
