@@ -35,5 +35,9 @@ const User = new Schema({
         type: [String],
         default: []
     },
+    watchedVideosIdList : {
+        type: [String],
+        default: []
+    },
 });
 module.exports = mongoose.model('User', User);

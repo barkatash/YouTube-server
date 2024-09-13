@@ -1,0 +1,13 @@
+First you should be in the repository project2024-server on branch called cpp-server.
+For running the js server you need to run in the terminal:
+npm run start
+
+The js server running on the port you wrote on .env.local file in the config folder.
+If you dont have those you should open new folder at the project root called "config" and add a .env.local file.
+My .env.local is this (with connection to mongodb also):
+CONNECTION_STRING='mongodb://localhost:27017/youtube'
+PORT=8080
+
+The client is served from the server at http://localhost:8080/
+
+* You have in this project file called script.js with a script for the mongoDb data.
